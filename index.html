@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المسوحات الميدانية لدورات المياه - المشاعر المقدسة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'haj-dark': '#0b3d24',
+                        'haj-primary': '#115e3b',
+                        'haj-secondary': '#1b8053',
+                        'haj-light': '#e8f5e9',
+                        'haj-gold': '#d4af37'
+                    },
+                    fontFamily: {
+                        'arabic': ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0fdf4;
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23115e3b" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        }
+        .white-logo {
+            filter: brightness(0) invert(1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(11, 61, 36, 0.1);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #115e3b;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-haj-dark text-white py-3 md:py-4 shadow-lg border-b-4 border-haj-gold">
+        <div class="container mx-auto px-2 md:px-4 flex justify-between items-center gap-2 md:gap-4">
+            
+            <img src="https://image2url.com/r2/default/images/1773558610625-b250b6cd-d224-421f-b749-0894a9cf0602.png" 
+                 alt="Euroconsult Logo" 
+                 class="h-8 sm:h-10 md:h-16 w-auto object-contain shrink-0 white-logo">
+            
+            <div class="text-center flex-1 px-1">
+                <h1 class="text-sm sm:text-lg md:text-2xl font-bold leading-tight">المسوحات الميدانية لدورات المياه</h1>
+                <p class="text-[10px] sm:text-xs md:text-sm text-haj-gold font-medium mt-1">الرصد الآلي - المشاعر المقدسة</p>
+            </div>
+            
+            <img src="https://haj.gov.sa/_next/image?url=https%3A%2F%2Fhaj.gov.sa%2Fs-core%2F-%2Fmedia%2FProject%2FHAJJ%2FHajj-Logos%2FFooter-Logo.svg%3Fiar%3D0%26hash%3DB264A0694E67A2E26811BCC3C7B24DD5&w=1920&q=75" 
+                 alt="Hajj Ministry Logo" 
+                 class="h-8 sm:h-10 md:h-16 w-auto object-contain shrink-0 white-logo">
+                 
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 flex-1 flex justify-center items-start">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl p-6 md:p-8">
+            
+            <!-- عنوان الفورم -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-haj-light text-haj-primary mb-4">
+                    <i class="fas fa-clipboard-check text-2xl"></i>
+                </div>
+                <h2 class="text-xl md:text-2xl font-bold text-haj-dark">نموذج الرفع الميداني</h2>
+                <p class="text-gray-500 mt-2 text-sm">قم بتعبئة البيانات ورفع الصور ليتم حفظها تلقائياً في الأرشيف</p>
+            </div>
+
+            <form id="uploadForm" class="space-y-6">
+
+                <!-- المشعر -->
+                <div>
+                    <label class="block text-sm font-bold text-haj-dark mb-1">المشعر *</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400"><i class="fas fa-map-marker-alt"></i></span>
+                        <select id="holySite" required class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-haj-primary focus:border-haj-primary outline-none transition-all appearance-none bg-white">
+                            <option value="" disabled selected>اختر المشعر...</option>
+                            <option value="منى">مشعر منى</option>
+                            <option value="عرفات">مشعر عرفات</option>
+                            <option value="مزدلفة">مشعر مزدلفة</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-gray-500">
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- مناطق المسوحات الميدانية -->
+                    <div>
+                        <label class="block text-sm font-bold text-haj-dark mb-1">مناطق المسوحات الميدانية *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400"><i class="fas fa-layer-group"></i></span>
+                            <select id="surveyZone" required class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-haj-primary focus:border-haj-primary outline-none transition-all appearance-none bg-white">
+                                <option value="" disabled selected>اختر الزون...</option>
+                                <option value="زون 1">زون 1</option>
+                                <option value="زون 2">زون 2</option>
+                                <option value="زون 3">زون 3</option>
+                                <option value="زون 4">زون 4</option>
+                                <option value="زون 5">زون 5</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-gray-500">
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- معرف دورة المياه (GIS) -->
+                    <div>
+                        <label class="block text-sm font-bold text-haj-dark mb-1">معرف دورة المياه (GIS) *</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400"><i class="fas fa-restroom"></i></span>
+                            <input type="text" id="gisId" required placeholder="مثال: WC-MN-102" 
+                                class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-haj-primary focus:border-haj-primary outline-none transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تاريخ الرصد -->
+                <div>
+                    <label class="block text-sm font-bold text-haj-dark mb-1">تاريخ الرصد *</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400"><i class="fas fa-calendar-alt"></i></span>
+                        <input type="date" id="surveyDate" required 
+                            class="w-full pl-3 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-haj-primary focus:border-haj-primary outline-none transition-all bg-white text-right">
+                    </div>
+                </div>
+
+                <!-- Photos Upload -->
+                <div>
+                    <label class="block text-sm font-bold text-haj-dark mb-1">الصور الملتقطة *</label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:bg-haj-light transition-colors relative bg-gray-50">
+                        <div class="space-y-2 text-center w-full">
+                            <i class="fas fa-camera text-4xl text-haj-secondary mb-2"></i>
+                            <div class="flex text-sm text-gray-600 justify-center">
+                                <label for="photos" class="relative cursor-pointer bg-white rounded-md font-medium text-haj-primary hover:text-haj-dark focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-haj-primary px-3 py-1 shadow-sm border border-gray-200">
+                                    <span>اضغط لاختيار الصور</span>
+                                    <input id="photos" name="photos" type="file" multiple accept="image/*" class="sr-only">
+                                </label>
+                            </div>
+                            <p class="text-xs text-gray-500">مسموح بعدة صور معاً (JPG, PNG)</p>
+                        </div>
+                    </div>
+
+                    <!-- شبكة معاينة الصور المصغرة -->
+                    <div id="thumbnailsContainer" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 mt-4">
+                        <!-- سيتم إضافة الصور هنا عبر الجافاسكريبت -->
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-xl shadow-sm text-lg font-bold text-white bg-haj-primary hover:bg-haj-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-haj-primary transition-all mt-6 disabled:opacity-75 disabled:cursor-not-allowed">
+                    <i class="fas fa-cloud-upload-alt ml-2"></i> رفع وإنشاء المجلدات
+                </button>
+
+                <!-- Status Messages -->
+                <div id="statusMessage" class="hidden mt-4 p-4 rounded-xl text-center font-bold text-sm">
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-haj-dark text-white py-6 border-t border-green-800">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-xs md:text-sm leading-relaxed text-gray-300">
+                جميع الحقوق محفوظة لفريق الدعم الفني للأرشفة الإلكترونية م/عمرعادل<br>
+                <span class="text-haj-gold font-bold">شركة يوروكونسلت مشروع وزارة الحج والعمرة © 2026</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // إعداد التاريخ الافتراضي لليوم
+        document.getElementById('surveyDate').valueAsDate = new Date();
+
+        // ----------------------------------------------------
+        // نظام إدارة و معاينة الصور (Thumbnails Management)
+        // ----------------------------------------------------
+        let selectedFiles = []; // مصفوفة لتخزين الملفات المختارة
+        const fileInput = document.getElementById('photos');
+        const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+
+        fileInput.addEventListener('change', function(e) {
+            const newFiles = Array.from(e.target.files);
+            selectedFiles = selectedFiles.concat(newFiles); // إضافة الصور الجديدة للقديمة
+            renderThumbnails();
+            fileInput.value = ''; // تصفير الـ input للتمكن من اختيار نفس الملف مرة أخرى إذا لزم الأمر
+        });
+
+        // دالة عرض الصور المصغرة
+        function renderThumbnails() {
+            thumbnailsContainer.innerHTML = ''; // مسح العرض الحالي
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'relative group rounded-lg overflow-hidden border-2 border-gray-200 shadow-sm aspect-square bg-white';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-full object-cover" alt="preview" />
+                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity flex items-start justify-end p-1">
+                            <button type="button" onclick="removeFile(${index})" class="bg-red-500 hover:bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center transform hover:scale-110 transition-transform shadow-lg">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+                    thumbnailsContainer.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // دالة حذف الصورة من المصفوفة
+        window.removeFile = function(index) {
+            selectedFiles.splice(index, 1);
+            renderThumbnails(); // إعادة بناء العرض
+        };
+
+
+        // ----------------------------------------------------
+        // نظام رفع البيانات للدرايف (Google Apps Script API)
+        // ----------------------------------------------------
+        // 🛑 استبدل هذا الرابط بالرابط الخاص بك الذي ستحصل عليه بعد عمل Deploy
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFsLQg7MY5JzL8-M3svfZ6pTMHtKS7CrUPjZlDJCUSgRWL9x18J0RZ1Y9aNcxgrlvH0A/exec'; 
+
+        const form = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
+
+        // تحويل الملفات إلى Base64
+        const readFileAsBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve({
+                    name: file.name,
+                    mimeType: file.type,
+                    data: reader.result.split(',')[1] // أخذ البيانات فقط بدون المقدمة
+                });
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (selectedFiles.length === 0) {
+                showStatus('error', 'الرجاء اختيار صورة واحدة على الأقل قبل الرفع.');
+                return;
+            }
+
+            // تفعيل حالة التحميل للزر
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<div class="loader ml-3"></div> جاري الرفع للدرايف... برجاء الانتظار`;
+            submitBtn.classList.replace('bg-haj-primary', 'bg-gray-500');
+            statusMessage.classList.add('hidden');
+
+            try {
+                // تجميع البيانات
+                const holySite = document.getElementById('holySite').value;
+                const surveyZone = document.getElementById('surveyZone').value;
+                const gisId = document.getElementById('gisId').value;
+                const surveyDate = document.getElementById('surveyDate').value;
+
+                // تحويل جميع الصور المختارة
+                const base64Files = [];
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const base64 = await readFileAsBase64(selectedFiles[i]);
+                    base64Files.push(base64);
+                }
+
+                // الحزمة المرسلة للسيرفر
+                const payload = {
+                    holySite: holySite,
+                    surveyZone: surveyZone,
+                    gisId: gisId,
+                    surveyDate: surveyDate,
+                    files: base64Files
+                };
+
+                // الإرسال الفعلي لـ Google Script
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload),
+                    redirect: 'follow'
+                });
+                
+                const result = await response.json();
+                
+                if(result.status === 'success'){
+                    showStatus('success', 'تم رفع البيانات والصور وإنشاء المجلدات بنجاح!');
+                    form.reset(); // تصفير الخانات
+                    document.getElementById('surveyDate').valueAsDate = new Date(); // إرجاع التاريخ لليوم
+                    selectedFiles = []; // تفريغ المصفوفة
+                    renderThumbnails(); // تفريغ العرض
+                } else {
+                    throw new Error(result.message || 'حدث خطأ غير معروف في السيرفر');
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                showStatus('error', 'حدث خطأ أثناء الرفع: ' + error.message);
+            } finally {
+                // إعادة الزر لحالته الطبيعية
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fas fa-cloud-upload-alt ml-2"></i> رفع وإنشاء المجلدات`;
+                submitBtn.classList.replace('bg-gray-500', 'bg-haj-primary');
+            }
+        });
+
+        // دالة عرض رسائل الخطأ والنجاح
+        function showStatus(type, message) {
+            statusMessage.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            if(type === 'success') {
+                statusMessage.classList.add('bg-green-100', 'text-green-800');
+                statusMessage.innerHTML = `<i class="fas fa-check-circle ml-1"></i> ${message}`;
+            } else {
+                statusMessage.classList.add('bg-red-100', 'text-red-800');
+                statusMessage.innerHTML = `<i class="fas fa-exclamation-triangle ml-1"></i> ${message}`;
+            }
+        }
+    </script>
+</body>
+</html>
